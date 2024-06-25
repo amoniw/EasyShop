@@ -116,10 +116,7 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao {
 
             // update category
         }
-
-        // update category
     }
-
     @Override
     public void delete(int categoryId) {
         String sql = "DELETE FROM category " +
