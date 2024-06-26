@@ -11,6 +11,8 @@ import org.yearup.models.ShoppingCart;
 import org.yearup.models.User;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController // convert this class to a REST controller
 @RequestMapping("/api/cart")// only logged in users should have access to these actions
@@ -30,7 +32,7 @@ public class ShoppingCartController {
             User user = userDao.getByUserName(userName);
             int userId = user.getId();
 
-            // use the shoppingcartDao to get all items in the cart and return the cart
+            List<ShoppingCart> shoppingCarts = new ArrayList<>(); // use the shoppingcartDao to get all items in the cart and return the cart
             return null;
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Oops... our bad.");
@@ -41,7 +43,7 @@ public class ShoppingCartController {
     // add a POST method to add a product to the cart - the url should be
     @ResponseStatus(value = HttpStatus.CREATED)
     public Product addProduct(@RequestBody Product product) {
-        return productDao.insert(product);
+        return productDao.create(product);
     }
     // https://localhost:8080/cart/products/15 (15 is the productId to be added
 
