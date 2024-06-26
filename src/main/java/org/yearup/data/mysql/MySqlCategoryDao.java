@@ -65,15 +65,14 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao {
 
     @Override
     public Category create(Category category) {
-        String sql = "INSERT INTO products(name, category_id, description,) " +
-                " VALUES (?, ?, ?);";
+        String sql = "INSERT INTO categories(name, description,) " +
+                " VALUES (?, ?);";
 
         try (Connection connection = getConnection()) {
 
             PreparedStatement statement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             statement.setString(1, category.getName());
-            statement.setInt(3, category.getCategoryId());
-            statement.setString(4, category.getDescription());
+            statement.setString(2, category.getDescription());
 
             int rowsAffected = statement.executeUpdate();
 
@@ -81,10 +80,10 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao {
                 ResultSet generatedKeys = statement.getGeneratedKeys();
 
                 if (generatedKeys.next()) {
-                    int orderId = generatedKeys.getInt(1);
+                    int categoryId = generatedKeys.getInt(1);
 
 
-                    return getById(orderId);
+                    return getById(categoryId);
                 }
             }
         } catch (SQLException e) {
@@ -97,17 +96,16 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao {
 
     @Override
     public void update(int categoryId, Category category) {
-        String sql = "UPDATE category" +
+        String sql = "UPDATE categories " +
                 "SET name = ? " +
-                ",category_id = ? " +
                 ", description = ? " +
                 "WHERE category_id = ?;";
 
         try (Connection connection = getConnection()) {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, category.getName());
-            statement.setInt(2, category.getCategoryId());
-            statement.setString(3, category.getDescription());
+            statement.setInt(3, category.getCategoryId());
+            statement.setString(2, category.getDescription());
 
 
             statement.executeUpdate();
@@ -119,7 +117,7 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao {
     }
     @Override
     public void delete(int categoryId) {
-        String sql = "DELETE FROM category " +
+        String sql = "DELETE FROM categories " +
                 "WHERE category_id = ?;";
 
         try (Connection connection = getConnection()) {
