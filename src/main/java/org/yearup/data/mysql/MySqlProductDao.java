@@ -1,5 +1,6 @@
 package org.yearup.data.mysql;
 
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 import org.yearup.models.Product;
 import org.yearup.data.ProductDao;
@@ -43,7 +44,6 @@ public class MySqlProductDao extends MySqlDaoBase implements ProductDao
             statement.setBigDecimal(4, minPrice);
             statement.setBigDecimal(5, maxPrice);
             statement.setBigDecimal(6, maxPrice);
-
             statement.setString(7, color);
             statement.setString(8, color);
 
