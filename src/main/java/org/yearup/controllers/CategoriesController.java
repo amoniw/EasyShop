@@ -10,12 +10,10 @@ import org.yearup.data.ProductDao;
 import org.yearup.models.Category;
 import org.yearup.models.Product;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
+
+import static java.sql.DriverManager.getConnection;
+
 
 @RestController
 @RequestMapping("categories") // add the annotation to make this controller the endpoint for the following url
@@ -35,16 +33,13 @@ public class CategoriesController {
     @GetMapping("/categories") // add the appropriate annotation for a get action
     // find and return all categories
     public List<Category> getAll() {
-        return categoryDao.getAllCategories();
+        try {
+
+            return categoryDao.getAllCategories();
+        } catch (Exception ex) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Oops... our bad.");
+        }
     }
-
-    @GetMapping("/products")
-    public List<Product> getAllProducts() {
-
-        List<Product> products = productDao.getAllProdcuts();
-        return products;
-    }
-
     @GetMapping("{id}") // add the appropriate annotation for a get action
     public Category getById(@PathVariable int id) {
         Category category = null;
@@ -63,29 +58,19 @@ public class CategoriesController {
     // the url to return all products in category 1 would look like this
     // https://localhost:8080/categories/1/products
     @GetMapping("{categoryId}/products")
-    public List<Product> getProductsById(@PathVariable int categoryId) {
-        List<Product> products = new ArrayList<>();
-
-        String sql = "SELECT * FROM products " +
-                " WHERE category_id = ? ";
-
-        try (Connection connection = getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setInt(1, categoryId);
-
-            ResultSet row = statement.executeQuery();
-
-            while (row.next()) {
-                Product product = mapRow(row);
-                products.get(products);
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-        return products;
-
+    public List<Product> getProductsById(@PathVariable int categoryId)
+    {
         // get a list of product by categoryId
+    try {
+        var category = categoryDao.getById(categoryId);
+
+        if (category == null)
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Category not found.");
+        return productDao.search(categoryId, null, null, null);
+    }
+    catch(Exception ex){
+        throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Something went wrong. Please try again");
+    }
     }
 
     @PostMapping // add annotation to call this method for a POST action
@@ -99,26 +84,19 @@ public class CategoriesController {
         }
     }
 
-    @PutMapping("{id}")
+    @RequestMapping(path = "/categories/{categoryId}" , method = RequestMethod.PUT)
+
     // add annotation to call this method for a PUT (update) action - the url path must include the categoryId
     @PreAuthorize("hasRole('ROLE_ADMIN')") // add annotation to ensure that only an ADMIN can call this function
-    public void updateCategory(@PathVariable int id, @RequestBody Category category) {
-        try {
-            var category = categoryDao.getById(id);
+    public void updateCategory(@PathVariable int categoryId, @RequestBody Category category) {
+        categoryDao.update(categoryId, category);
+       }
 
-            if (category == null)
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-
-            categoryDao.getById(id);
-        } catch (Exception ex) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
     // update the category by id
     @DeleteMapping("{id}")
     // add annotation to call this method for a DELETE action - the url path must include the categoryId
     @PreAuthorize("hasRole('ROLE_ADMIN')") // add annotation to ensure that only an ADMIN can call this function
-    @ResponseStatus(HttpStatus.NO_CONTENT) // add anotation for response status NO_CONTENT
+    @ResponseStatus(HttpStatus.NO_CONTENT) // add annotation for response status NO_CONTENT
     public void deleteCategory(@PathVariable int id) {
         try {
             var category = categoryDao.getById(id);

@@ -80,7 +80,7 @@ public class ShoppingCartController {
                                        Principal principal) {
         try {
             String username = principal.getName();
-            User user = UserDao.getByUserName(username);
+            User user = userDao.getByUserName(username);
             int userId = user.getId();
 
             shoppingCartDao.updateItem(userId, productId, quantity);
