@@ -30,7 +30,7 @@ public class CategoriesController {
         this.productDao = productDao;
     }
 
-    @GetMapping("/categories") // add the appropriate annotation for a get action
+    @GetMapping() // add the appropriate annotation for a get action
     // find and return all categories
     public List<Category> getAll() {
         try {
@@ -84,14 +84,18 @@ public class CategoriesController {
         }
     }
 
-    @RequestMapping(path = "/categories/{categoryId}" , method = RequestMethod.PUT)
-
+    @PutMapping( "/{id}")
     // add annotation to call this method for a PUT (update) action - the url path must include the categoryId
     @PreAuthorize("hasRole('ROLE_ADMIN')") // add annotation to ensure that only an ADMIN can call this function
-    public void updateCategory(@PathVariable int categoryId, @RequestBody Category category) {
-        categoryDao.update(categoryId, category);
-       }
+    public void updateCategory(@PathVariable int id, @RequestBody Category category) {
+        categoryDao.update(id, category);
+        try {
+           categoryDao.update(id, category);
 
+        } catch (Exception exception) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "update category error");
+        }
+       }
     // update the category by id
     @DeleteMapping("{id}")
     // add annotation to call this method for a DELETE action - the url path must include the categoryId

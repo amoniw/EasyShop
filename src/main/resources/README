@@ -1,12 +1,14 @@
-This Java console application shows a EasyShop application . The purpose of this application is to show a overview on how to run and locate online items Intelli J. The functionality that it shows is that . It will prompt the user to add items to there online cart for there online store.
+This Java console application shows a EasyShop application . The purpose of this application is to show a overview on how to run and locate online items on EasyShop. The functionality that it shows is that . It will prompt the user to add items to there online cart for there online store.
+
 Class Diagram
 
 User Stories
 List the user stories that guided the development of your application. Format these stories as: "As a [type of user], I want [some goal] so that [some reason]."
 
-As a user, I want to be able to add new products to my online shop including product details such as name, price .
-As a user, I want to search the list of products.
-As a user,I want to add products to my cart, proceed to checkout, and complete my purchase options.
+As a user, I want to make a platform for convenient online shopping. where you would be able to look at electronics, fashion, home goods and more.
+As a user,I want to be able to filter search results by price range, brand, and other criteria.
+AS a user, I want to be able to add items to my cart and easily remove them if needed, so that I can manage my shopping list efficiently before checkout.
+As a user, I want to have a successful running online easy shop application for users.
 Setup
 Instructions on how to set up and run the project using IntelliJ IDEA.
 

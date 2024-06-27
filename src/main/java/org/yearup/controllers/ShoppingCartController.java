@@ -3,6 +3,7 @@ package org.yearup.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.yearup.data.ProductDao;
@@ -16,21 +17,21 @@ import org.yearup.models.User;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
-
+/*@Component
 @RestController // convert this class to a REST controller
-@RequestMapping("/api/shopping-cart") // only logged in users should have access to these actions
+@RequestMapping("/api/shopping-cart") // only logged in users should have access to these actions*/
 public class ShoppingCartController {
 
     private ShoppingCartDao shoppingCartDao;
     private UserDao userDao;
     private ProductDao productDao;
 
-    @Autowired
+/*    @Autowired
     public ShoppingCartController(ShoppingCartDao shoppingCartDao) {
         this.shoppingCartDao = shoppingCartDao;
         this.userDao = userDao;
         this.productDao = productDao;
-    }
+    }*/
 
     @GetMapping
     @PreAuthorize("hasRole('Role_USER')")// each method in this controller requires a Principal object as a parameter
@@ -50,7 +51,7 @@ public class ShoppingCartController {
     }
 
     // add a POST method to add a product to the cart - the url should be
-    @PostMapping("/products/{productId}")
+   /* @PostMapping("/products/{productId}")
     @PreAuthorize("hasRole('ROLE_USER')")
     public ShoppingCart addProductToCart(@PathVariable int productId, Principal principal) {
         try {
@@ -109,7 +110,7 @@ public class ShoppingCartController {
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Oops... our bad.");
         }
-    }
+    }*/
 }
 // https://localhost:8080/cart
 
