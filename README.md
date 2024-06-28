@@ -29,6 +29,8 @@ Any additional libraries or frameworks used in the project.
 Demo
 Include screenshots or GIFs that show your application in action. Use tools like Giphy Capture to record a GIF of your application.
 Application Screenshot
+![image](https://github.com/amoniw/EasyShop/assets/166552366/695736c5-e40a-4853-901c-732ee1cc0444)
+
 
 Future Work
 Outline potential future enhancements or functionalities you might consider adding:
