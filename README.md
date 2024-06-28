@@ -47,5 +47,5 @@ Java Programming Tutorial
 Effective Java
 
 Thank you to [Raymond] for your continuous support and guidance throughout this whole program.
-A special thanks to all team for their dedication and teamwork and I just want to thank Abirami, Anthony, Shelby, & Demond, Manvir for all there suppport.
+A special thanks to all team for their dedication and teamwork and I just want to thank Abirami, Anthony, Shelby, & Demond, Manvir, Pratik, Anita, Alexis for all there suppport and help throughtout this last capstone.
 
