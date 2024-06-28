@@ -90,8 +90,7 @@ public class CategoriesController {
     public void updateCategory(@PathVariable int id, @RequestBody Category category) {
         categoryDao.update(id, category);
         try {
-           categoryDao.update(id, category);
-
+            
         } catch (Exception exception) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "update category error");
         }
