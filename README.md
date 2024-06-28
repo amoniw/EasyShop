@@ -1,4 +1,4 @@
-This Java console application shows a EasyShop application . The purpose of this application is to show a overview on how to run and locate online items on EasyShop. The functionality that it shows is that . It will prompt the user to add items to there online cart for there online store.
+This Java console application shows a EasyShop application front end and back end . The purpose of this application is to show a overview on how to run and locate online items on EasyShop. The functionality that it shows is that . It will prompt the user to add items to there online cart for there online store.
 
 Class Diagram
 
